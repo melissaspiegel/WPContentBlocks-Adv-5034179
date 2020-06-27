@@ -1,5 +1,6 @@
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
+const { RichText } = wp.editor;
 
 import { ReactComponent as Logo } from "../bv-logo.svg";
 import logoWhiteURL from "../bv-logo-white.svg";
@@ -8,6 +9,13 @@ registerBlockType("podkit/editable", {
   title: __("Custom Title", "podkit"),
   icon: { src: Logo },
   category: "podkit",
+  attributes: {
+    episodeTitle: {
+      type: "string",
+      source: "html",
+      selector: ".podkit-title"
+    }
+  },
 
   edit: props => {
     // Props parameter holds all the info.
@@ -15,9 +23,14 @@ registerBlockType("podkit/editable", {
 
     // Lift info from props and populate various constants.
     const {
-      className
+      attributes: { episodeTitle },
+      className,
+      setAttributes
     } = props;
 
+    const onChangeEpisodeTitle = newEpisodeTitle => {
+      setAttributes({ episodeTitle: newEpisodeTitle });
+    }
     return (
       <div className={`${className} podkit-block podkit-editable`}>
         <figure className="podkit-logo">
@@ -28,7 +41,11 @@ registerBlockType("podkit/editable", {
             {__("The Binaryville Podcast", "podkit")}
           </div>
           <h3 className="podkit-title">
-            {__("The Binaryville Podcast", "podkit")}
+            <RichText
+              placeholder ={__("Podcast episode title", "podkit")}
+              value={episodeTitle}
+              onChange={onChangeEpisodeTitle}
+              />
           </h3>
           <div className="podkit-cta">
             <a href="#">{__("Like & Subscribe!", "podkit")}</a>
@@ -48,7 +65,8 @@ registerBlockType("podkit/editable", {
             {__("The Binaryville Podcast", "podkit")}
           </div>
           <h3 className="podkit-title">
-            {__("The Binaryville Podcast", "podkit")}
+           <RichText.Content value={props.attributes.episodeTitle}
+           />
           </h3>
           <div className="podkit-cta">
             <a href="/subscribe">{__("Like & Subscribe!", "podkit")}</a>
