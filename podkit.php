@@ -113,7 +113,7 @@ function podkit_register_blocks() {
 	$blocks = [
 		'podkit/static',
 		'podkit/editable',
-		'podkit/media'
+		'podkit/sample'
 	];
 	
 	// Loop through $blocks and register each block with the same script and styles.

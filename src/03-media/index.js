@@ -2,7 +2,7 @@ const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
 const { MediaUpload, RichText } = wp.editor;
 const { Button } = wp.components;
-
+console.info(wp.components);
 import { ReactComponent as Logo } from "../bv-logo.svg";
 import logoWhiteURL from "../bv-logo-white.svg";
 
@@ -44,6 +44,7 @@ registerBlockType("podkit/media", {
     // Grab imageObject, set the value of episodeImage to imageObject.sizes.podkitFeatImg.url.
     const onImageSelect = imageObject => {
       console.info(imageObject);
+      setAttributes({ episodeImage: imageObject.sizes.podkitFeatImg.url });
     };
 
     return (

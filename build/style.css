@@ -120,3 +120,8 @@
   padding: 3em;
   box-shadow: none;
 }
+
+.btn-primary{
+	background-color: #0044e3;
+	border-color: #0044e3;
+  }
